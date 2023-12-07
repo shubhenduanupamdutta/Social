@@ -1,5 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +9,21 @@
     <title>Social Media Website</title>
     {% endblock head %}
     {% block style %}
-    
+
     {% endblock style %}
 </head>
+
 <body>
     {% block body %}
-    
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}"> Login </a>
+    {% endif %}
     {% endblock body %}
     {% block script %}
-    
+
     {% endblock script %}
 </body>
+
 </html>
