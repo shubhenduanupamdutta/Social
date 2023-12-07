@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import LoginForm
+from .forms import LoginForm, UserRegisterForm
 
 # Create your views here.
 
@@ -29,3 +29,17 @@ def user_login(request):
 @login_required
 def index(request):
     return render(request, 'users/index.html')
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            # process form data
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, 'users/register_done.html')
+
+    form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
