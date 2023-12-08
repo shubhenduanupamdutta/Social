@@ -187,3 +187,8 @@ test_user.json
 ecom_data.json
 
 
+# tailwind
+package-lock.json
+package.json
+tailwind.config.js
+tw.css
