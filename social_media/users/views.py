@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+from posts.models import Posts
 from .forms import LoginForm, UserRegisterForm, UserEditForm, ProfileEditForm
 from .models import Profile
 
@@ -29,7 +31,9 @@ def user_login(request):
 
 @login_required
 def index(request):
-    return render(request, 'users/index.html')
+    current_user = request.user
+    user_posts = Posts.objects.filter(user=current_user)
+    return render(request, 'users/index.html', {"posts": user_posts})
 
 
 def register(request):
