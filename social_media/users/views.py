@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import LoginForm, UserRegisterForm
+from .models import Profile
 
 # Create your views here.
 
@@ -39,6 +40,7 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
+            Profile.objects.create(user=user)
             return render(request, 'users/register_done.html')
 
     form = UserRegisterForm()
