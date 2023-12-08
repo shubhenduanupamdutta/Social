@@ -10,7 +10,7 @@ class Posts(models.Model):
     image = models.ImageField(upload_to="images/%Y/%m/%d/")
     caption = models.TextField(blank=True)
     title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
