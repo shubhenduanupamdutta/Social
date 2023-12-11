@@ -33,7 +33,9 @@ def user_login(request):
 def index(request):
     current_user = request.user
     user_posts = Posts.objects.filter(user=current_user)
-    return render(request, 'users/index.html', {"posts": user_posts})
+    profile = Profile.objects.get(user=current_user)
+    context = {"posts": user_posts, "profile": profile}
+    return render(request, 'users/index.html', context=context)
 
 
 def register(request):
