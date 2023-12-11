@@ -1,10 +1,26 @@
 {% extends "users/base.html" %}
-
+<!-- Starting Body -->
 {% block body %}
-<h1> Home Page of users app </h1>
-{% for post in posts %}
-    <h1> {{ post.title }} </h1>
-    <h3> {{ post.user }} </h3>
-    <img src="{{ post.image.url }}" alt="image" width="800">
-{% endfor %}
+<div class="flex justify-center mt-5 p-10">
+  <h1 class="text-3xl font-normal mb-3 text-gray-600">My Posts</h1>
+</div>
+
+<div class="grid grid-cols-1 w-120 h-120 mx-auto">
+  {% for post in posts %}
+  <!-- Card Starts here -->
+  <a class="w-120 h-120" href="#">
+
+    <div class="rounded overflow-hidden w-120 h-120 bg-white shadow-lg">
+      <div class="user-container flex m-auto p-5">
+        <img class="rounded-full w-12 h-12" src="{{ profile.photo.url }}" alt="image" />
+        <div class="mx-3 my-auto font-bold"><span class="text-indigo-500">{{post.user}}</span></div>
+      </div>
+      <img src="{{ post.image.url }}" alt="image" />
+    </div>
+  </a>
+  <!-- Card Ends Here -->
+  {% endfor %}
+</div>
+<!-- Ending Body -->
+
 {% endblock body %}
