@@ -20,7 +20,11 @@
       <div class="px-5 py-2">
         <div class="icon-container flex gap-3">
           <div class="btn-like" id="{{post.id}}">
+            {% if user in post.liked_by.all %}
+            <img class="w-5 h-5" src="{% static 'users/images/liked.png' %}" alt="like icon" />
+            {% else %}
             <img class="w-5 h-5" src="{% static 'users/images/like.png' %}" alt="like icon" />
+            {% endif %}
           </div>
           <img class="w-5 h-5" src="{% static 'users/images/comment.png' %}" alt="comment icon" />
           <img class="w-5 h-5" src="{% static 'users/images/share.png' %}" alt="share icon" />
@@ -53,6 +57,8 @@
         post_id: postId,
         csrfmiddlewaretoken: window.CSRF_TOKEN
       },
+    }).done(function() {
+      window.location.reload()
     })
   })
 </script>
