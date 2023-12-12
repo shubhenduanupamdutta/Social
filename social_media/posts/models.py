@@ -30,6 +30,8 @@ class Comment(models.Model):
         Posts, on_delete=models.CASCADE, related_name="comments")
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+    posted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["-created_at"]
