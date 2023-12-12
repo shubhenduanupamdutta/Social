@@ -1,5 +1,5 @@
 from django import forms
-from .models import Posts
+from .models import Comment, Posts
 
 
 class PostCreateForm(forms.ModelForm):
@@ -13,3 +13,9 @@ class PostCreateForm(forms.ModelForm):
             field.widget.attrs.update({
                 'class': 'w-full focus:outline-none'
             })
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["body"]
