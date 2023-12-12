@@ -44,6 +44,7 @@
         <div class="text-gray-700 text-base mt-0">{{post.caption}}</div>
       </div>
       
+      {% if post.comments.all|length > 0 %}
       <div class="px-5 py-3">
         <div class="font-bold">Comments:</div>
         <div class="flex items-center gap-2">
@@ -55,6 +56,25 @@
       </br>
       {% endfor %}
       </div>
+      {% endif %}
+      <div class="px-5 py-5">
+        <form method="post">
+          {% csrf_token %}
+          <div>
+            <label for="id_body">Add Comment</label>
+          </div>
+          <div>
+            {{ form.body }}
+          </div>
+          <div>
+            <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
+          </div>
+          <div>
+            <input type="submit" value="Add Comment">
+          </div>
+        </form>
+      </div>
+
     </div>
   </a>
   <div class="h-5 w-full"></div>
