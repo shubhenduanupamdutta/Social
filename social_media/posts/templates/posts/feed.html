@@ -1,18 +1,18 @@
 {% extends "users/base.html" %}
 {% load static %}
 {% load mathfilters %}
+{% load humanize %}
 <!-- Starting Body -->
 {% block body %}
 <div class="flex justify-center mt-5 p-10">
   <h1 class="text-3xl font-normal mb-3 text-gray-600">My Posts</h1>
 </div>
 
-<div class="grid grid-cols-1 w-120 h-120 mx-auto">
+<div class="grid grid-cols-1 w-120 mx-auto">
   {% for post in posts %}
   <!-- Card Starts here -->
-  <a class="w-120 h-120">
-
-    <div class="rounded overflow-hidden w-120 h-120 bg-white shadow-lg">
+  <a class="w-120 h-[850px]">
+    <div class="rounded overflow-hidden w-120 h-[700px] bg-white shadow-lg">
       <div class="user-container flex m-auto p-2">
         <img class="rounded-full w-8 h-8" src="{{ post.user.profile.photo.url }}" alt="image" />
         <div class="mx-3 my-auto font-bold"><span class="text-indigo-500">{{post.user}}</span></div>
@@ -43,8 +43,21 @@
         <div class="font-bold text-lg mb-0">{{post.title}}</div>
         <div class="text-gray-700 text-base mt-0">{{post.caption}}</div>
       </div>
+      
+      <div class="px-5 py-3">
+        <div class="font-bold">Comments:</div>
+        <div class="flex items-center gap-2">
+        {% for comment in post.comments.all %}
+        <div class="text-sm font-semibold text-gray-800"> {{ comment.body }} </div>
+        <!-- <div class="text-xs font-bold"> {{ user.first_name }} </div> -->
+        <div class="text-xs font-base"> {{ comment.created_at|naturaltime }}</div>
+      </div>
+      </br>
+      {% endfor %}
+      </div>
     </div>
   </a>
+  <div class="h-5 w-full"></div>
   <!-- Card Ends Here -->
   {% endfor %}
 </div>
