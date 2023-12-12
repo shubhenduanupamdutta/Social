@@ -1,5 +1,6 @@
 {% extends "users/base.html" %}
 {% load static %}
+{% load mathfilters %}
 <!-- Starting Body -->
 {% block body %}
 <div class="flex justify-center mt-5 p-10">
@@ -12,7 +13,7 @@
   <a class="w-120 h-120">
 
     <div class="rounded overflow-hidden w-120 h-120 bg-white shadow-lg">
-      <div class="user-container flex m-auto p-3">
+      <div class="user-container flex m-auto p-2">
         <img class="rounded-full w-8 h-8" src="{{ post.user.profile.photo.url }}" alt="image" />
         <div class="mx-3 my-auto font-bold"><span class="text-indigo-500">{{post.user}}</span></div>
       </div>
@@ -30,9 +31,17 @@
           <img class="w-5 h-5" src="{% static 'users/images/share.png' %}" alt="share icon" />
         </div>
       </div>
-      <div class="px-5 py-2">
-        <div class="font-bold text-lg mb-1">{{post.title}}</div>
-        <p class="text-gray-700 text-base">{{post.caption}}</p>
+      <div class="text-xs font-bold px-5">
+        {% if post.liked_by.count == 1 %}
+        {{ post.liked_by.first }} likes this
+        {% elif post.liked_by.count > 1 %}
+        {{ post.liked_by.first }} & {{ post.liked_by.count|sub:1 }} others like this
+        {% else %}
+        {% endif %}
+      </div>
+      <div class="px-5 py-1">
+        <div class="font-bold text-lg mb-0">{{post.title}}</div>
+        <div class="text-gray-700 text-base mt-0">{{post.caption}}</div>
       </div>
     </div>
   </a>
