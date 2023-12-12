@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Posts
-from .forms import PostCreateForm
+from .forms import CommentForm, PostCreateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -21,8 +21,20 @@ def post_create(request):
 
 
 def feed(request):
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        new_comment = comment_form.save(commit=False)
+        post_id = request.Post.get("post_id")
+        post = get_object_or_404(Posts, id=post_id)
+        new_comment.post = post
+        new_comment.save()
+
+        return redirect("feed")
+
+    comment_form = CommentForm()
     posts = Posts.objects.all()
-    return render(request, "posts/feed.html", {"posts": posts})
+    context = {"form": comment_form, "posts": posts}
+    return render(request, "posts/feed.html", context)
 
 
 def like_post(request):
