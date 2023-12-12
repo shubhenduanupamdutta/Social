@@ -27,6 +27,7 @@ def feed(request):
         post_id = request.POST.get("post_id")
         post = get_object_or_404(Posts, id=post_id)
         new_comment.post = post
+        new_comment.posted_by = request.user
         new_comment.save()
 
         return redirect("feed")
