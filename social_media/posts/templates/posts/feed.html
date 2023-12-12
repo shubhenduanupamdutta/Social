@@ -9,7 +9,7 @@
 <div class="grid grid-cols-1 w-120 h-120 mx-auto">
   {% for post in posts %}
   <!-- Card Starts here -->
-  <a class="w-120 h-120" href="#">
+  <a class="w-120 h-120">
 
     <div class="rounded overflow-hidden w-120 h-120 bg-white shadow-lg">
       <div class="user-container flex m-auto p-3">
@@ -19,7 +19,9 @@
       <img src="{{ post.image.url }}" alt="image" />
       <div class="px-5 py-2">
         <div class="icon-container flex gap-3">
-          <img class="w-5 h-5" src="{% static 'users/images/like.png' %}" alt="like icon" />
+          <div class="btn-like" id="{{post.id}}">
+            <img class="w-5 h-5" src="{% static 'users/images/like.png' %}" alt="like icon" />
+          </div>
           <img class="w-5 h-5" src="{% static 'users/images/comment.png' %}" alt="comment icon" />
           <img class="w-5 h-5" src="{% static 'users/images/share.png' %}" alt="share icon" />
         </div>
@@ -36,3 +38,23 @@
 <!-- Ending Body -->
 
 {% endblock body %}
+
+
+{% block script %}
+<script type="text/javascript">
+  // console.log("Hello World")
+  window.CSRF_TOKEN = "{{ csrf_token }}"
+  $(document).on('click', '.btn-like', function () {
+    const postId = this.id;
+    $.ajax({
+      method: "POST",
+      url: "/posts/like/",
+      data: {
+        post_id: postId,
+        csrfmiddlewaretoken: window.CSRF_TOKEN
+      },
+    })
+  })
+</script>
+
+{% endblock script %}
