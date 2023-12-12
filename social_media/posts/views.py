@@ -24,7 +24,7 @@ def feed(request):
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         new_comment = comment_form.save(commit=False)
-        post_id = request.Post.get("post_id")
+        post_id = request.POST.get("post_id")
         post = get_object_or_404(Posts, id=post_id)
         new_comment.post = post
         new_comment.save()
