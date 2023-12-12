@@ -43,35 +43,34 @@
         <div class="font-bold text-lg mb-0">{{post.title}}</div>
         <div class="text-gray-700 text-base mt-0">{{post.caption}}</div>
       </div>
-      
+
       {% if post.comments.all|length > 0 %}
-      <div class="px-5 py-3">
+      <div class="px-5 pt-3 pb-0">
         <div class="font-bold">Comments:</div>
         <div class="flex items-center gap-2">
-        {% for comment in post.comments.all %}
-        <div class="text-sm font-semibold text-gray-800"> {{ comment.body }} </div>
-        <!-- <div class="text-xs font-bold"> {{ user.first_name }} </div> -->
-        <div class="text-xs font-base"> {{ comment.created_at|naturaltime }}</div>
-      </div>
-      </br>
-      {% endfor %}
+          {% for comment in post.comments.all %}
+          <div class="text-sm font-semibold text-gray-800"> {{ comment.body }} </div>
+          <!-- <div class="text-xs font-bold"> {{ user.first_name }} </div> -->
+          <div class="text-xs font-base"> {{ comment.created_at|naturaltime }}</div>
+        </div>
+        </br>
+        {% endfor %}
       </div>
       {% endif %}
-      <div class="px-5 py-5">
-        <form method="post">
+      <div class="px-5 py-3">
+        <form method="post" class="bg-white shadow-md mt-0 w-full rounded px-4 py-0 mb-2">
           {% csrf_token %}
-          <div>
-            <label for="id_body">Add Comment</label>
+          <div class="mb-2">
+            <label for="id_body" class="block text-gray-700 text-sm font-bold mb-2">Add Comment</label>
           </div>
-          <div>
+          <div class="shadow appearance-none border rounded py-2 px-1 mr-2 text-gray-700">
             {{ form.body }}
           </div>
           <div>
             <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
           </div>
-          <div>
-            <input type="submit" value="Add Comment">
-          </div>
+          <input class="bg-green-500 text-white text-xs rounded px-1 py-1 my-2 mx-auto" type="submit" value="Add Comment">
+
         </form>
       </div>
 
@@ -99,7 +98,7 @@
         post_id: postId,
         csrfmiddlewaretoken: window.CSRF_TOKEN
       },
-    }).done(function() {
+    }).done(function () {
       window.location.reload()
     })
   })
