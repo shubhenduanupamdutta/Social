@@ -46,14 +46,13 @@
 
       {% if post.comments.all|length > 0 %}
       <div class="px-5 pt-3 pb-0">
-        <div class="font-bold">Comments:</div>
-        <div class="flex items-center gap-2">
-          {% for comment in post.comments.all %}
+        <div class="font-bold mb-2">Comments:</div>
+        {% for comment in post.comments.all %}
+        <div class="flex items-center gap-2 mb-1">
           <div class="text-sm font-semibold text-gray-800"> {{ comment.body }} </div>
-          <!-- <div class="text-xs font-bold"> {{ user.first_name }} </div> -->
+          <div class="text-xs font-bold"> {{ comment.posted_by.first_name }} </div>
           <div class="text-xs font-base"> {{ comment.created_at|naturaltime }}</div>
         </div>
-        </br>
         {% endfor %}
       </div>
       {% endif %}
@@ -69,7 +68,8 @@
           <div>
             <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
           </div>
-          <input class="bg-green-500 text-white text-xs rounded px-1 py-1 my-2 mx-auto" type="submit" value="Add Comment">
+          <input class="bg-green-500 text-white text-xs rounded px-1 py-1 my-2 mx-auto" type="submit"
+                 value="Add Comment">
 
         </form>
       </div>
